@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Red Planet — Join the Team</title>
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:#11182e;
+      --panel-2:#0f1528;
+      --text:#ffffff;
+      --muted:rgba(255,255,255,0.72);
+      --line:rgba(255,255,255,0.12);
+      --accent:#ffffff;
+      --accent-text:#000000;
+      --success:#16a34a;
+      --shadow:0 20px 60px rgba(0,0,0,0.35);
+      --radius:18px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:
+        radial-gradient(circle at top right, rgba(255,255,255,0.08), transparent 26%),
+        radial-gradient(circle at top left, rgba(255,255,255,0.05), transparent 22%),
+        linear-gradient(180deg, #0b1020 0%, #090d19 100%);
+      color:var(--text);
+      font-family:Arial, Helvetica, sans-serif;
+      line-height:1.5;
+    }
+
+    .container{
+      width:min(1100px, calc(100% - 32px));
+      margin:0 auto;
+    }
+
+    .navbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:20px;
+      padding:20px 0;
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter:blur(14px);
+      background:rgba(11,16,32,0.72);
+      border-bottom:1px solid rgba(255,255,255,0.06);
+    }
+
+    .nav-inner{
+      width:min(1100px, calc(100% - 32px));
+      margin:0 auto;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:20px;
+    }
+
+    .logo{
+      font-size:20px;
+      font-weight:800;
+      color:var(--text);
+      letter-spacing:0.02em;
+      text-decoration:none;
+      white-space:nowrap;
+    }
+
+    .nav-links{
+      display:flex;
+      gap:22px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+
+    .nav-links a{
+      color:var(--muted);
+      text-decoration:none;
+      font-size:15px;
+      transition:0.2s ease;
+    }
+
+    .nav-links a:hover{
+      color:#fff;
+    }
+
+    .nav-cta{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      background:var(--accent);
+      color:var(--accent-text) !important;
+      padding:10px 16px;
+      border-radius:999px;
+      font-weight:700;
+    }
+
+    .hero{
+      padding:72px 0 34px;
+      display:grid;
+      grid-template-columns:1.15fr 0.85fr;
+      gap:28px;
+      align-items:center;
+    }
+
+    .eyebrow{
+      display:inline-block;
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:0.14em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,0.7);
+      margin-bottom:14px;
+    }
+
+    h1{
+      font-size:clamp(38px, 7vw, 68px);
+      line-height:0.98;
+      margin:0 0 16px;
+      letter-spacing:-0.03em;
+    }
+
+    .hero p{
+      margin:0 0 28px;
+      font-size:18px;
+      color:var(--muted);
+      max-width:640px;
+    }
+
+    .hero-actions{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-bottom:26px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:48px;
+      background:var(--accent);
+      color:var(--accent-text);
+      padding:12px 20px;
+      border-radius:12px;
+      border:none;
+      cursor:pointer;
+      font-weight:700;
+      text-decoration:none;
+      transition:transform 0.18s ease, opacity 0.18s ease, box-shadow 0.18s ease;
+      box-shadow:var(--shadow);
+    }
+
+    .btn:hover{transform:translateY(-1px)}
+    .btn:active{transform:translateY(0)}
+    .btn.secondary{
+      background:transparent;
+      color:var(--text);
+      border:1px solid var(--line);
+      box-shadow:none;
+    }
+
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+    }
+
+    .stat{
+      padding:16px;
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:rgba(255,255,255,0.03);
+    }
+
+    .stat b{
+      display:block;
+      font-size:22px;
+      margin-bottom:4px;
+    }
+
+    .stat span{
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:22px;
+      box-shadow:var(--shadow);
+    }
+
+    .panel-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+      margin:22px 0 60px;
+    }
+
+    .panel-grid .card h3{
+      margin:0 0 8px;
+      font-size:18px;
+    }
+
+    .panel-grid .card p{
+      margin:0;
+      color:var(--muted);
+      font-size:15px;
+    }
+
+    .section-title{
+      font-size:clamp(28px, 4vw, 40px);
+      margin:0 0 10px;
+      letter-spacing:-0.03em;
+    }
+
+    .section-copy{
+      margin:0 0 24px;
+      color:var(--muted);
+      max-width:720px;
+    }
+
+    .form-wrap{
+      display:grid;
+      grid-template-columns:1fr 0.8fr;
+      gap:24px;
+      margin:0 0 80px;
+      align-items:start;
+    }
+
+    .form-card{
+      padding:24px;
+    }
+
+    form{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+
+    .field-row{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+
+    label{
+      display:block;
+      font-size:14px;
+      margin:0 0 8px;
+      color:rgba(255,255,255,0.88);
+      font-weight:600;
+    }
+
+    input, select, textarea{
+      width:100%;
+      padding:14px 14px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,0.1);
+      background:#0c1224;
+      color:white;
+      outline:none;
+      font:inherit;
+      transition:border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input::placeholder, textarea::placeholder{
+      color:rgba(255,255,255,0.42);
+    }
+
+    input:focus, select:focus, textarea:focus{
+      border-color:rgba(255,255,255,0.28);
+      box-shadow:0 0 0 4px rgba(255,255,255,0.06);
+    }
+
+    textarea{
+      min-height:130px;
+      resize:vertical;
+    }
+
+    .helper{
+      font-size:13px;
+      color:var(--muted);
+      margin-top:-4px;
+    }
+
+    .side-card h3{
+      margin:0 0 10px;
+      font-size:24px;
+    }
+
+    .side-card p{
+      margin:0 0 18px;
+      color:var(--muted);
+    }
+
+    .bullet{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      padding:12px 0;
+      border-top:1px solid rgba(255,255,255,0.08);
+    }
+
+    .bullet:first-of-type{
+      border-top:none;
+      padding-top:0;
+    }
+
+    .bullet-dot{
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background:#fff;
+      margin-top:8px;
+      flex:0 0 10px;
+    }
+
+    .bullet div b{
+      display:block;
+      margin-bottom:4px;
+    }
+
+    .bullet div span{
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .cta{
+      margin:0 0 90px;
+      padding:30px;
+      display:flex;
+      justify-content:space-between;
+      gap:24px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+
+    .cta h2{
+      margin:0 0 8px;
+      font-size:clamp(28px, 4vw, 42px);
+      letter-spacing:-0.03em;
+    }
+
+    .cta p{
+      margin:0;
+      color:var(--muted);
+      max-width:640px;
+    }
+
+    .float{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      background:var(--accent);
+      color:var(--accent-text);
+      padding:12px 18px;
+      border-radius:999px;
+      text-decoration:none;
+      font-weight:800;
+      box-shadow:var(--shadow);
+      z-index:60;
+    }
+
+    .popup{
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.72);
+      justify-content:center;
+      align-items:center;
+      padding:20px;
+      z-index:100;
+    }
+
+    .popup.show{display:flex}
+
+    .popup-box{
+      width:min(480px, 100%);
+      background:linear-gradient(180deg, #141b30, #0d1428);
+      border:1px solid rgba(255,255,255,0.1);
+      padding:28px;
+      border-radius:22px;
+      text-align:left;
+      box-shadow:var(--shadow);
+    }
+
+    .popup-box h2{
+      margin:0 0 10px;
+      font-size:28px;
+    }
+
+    .popup-box p{
+      margin:0 0 20px;
+      color:var(--muted);
+    }
+
+    .popup-actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .success-line{
+      display:inline-block;
+      color:#8df0a8;
+      font-weight:700;
+      margin-bottom:10px;
+    }
+
+    footer{
+      padding:0 0 50px;
+      color:rgba(255,255,255,0.45);
+      font-size:14px;
+      text-align:center;
+    }
+
+    @media (max-width: 900px){
+      .hero,
+      .form-wrap,
+      .panel-grid{
+        grid-template-columns:1fr;
+      }
+
+      .stats{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width: 680px){
+      body{padding-bottom:80px}
+      .field-row{
+        grid-template-columns:1fr;
+      }
+
+      .nav-inner{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .nav-links{
+        gap:14px;
+      }
+
+      .hero{
+        padding-top:44px;
+      }
+
+      .cta{
+        padding:22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="#" class="logo">Red Planet</a>
+      <div class="nav-links">
+        <a href="#overview">Overview</a>
+        <a href="#roles">Roles</a>
+        <a href="#form">Apply</a>
+        <a href="#cta" class="nav-cta">Join</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section class="hero" id="overview">
+      <div>
+        <span class="eyebrow">Recruitment System</span>
+        <h1>Join Red Planet Team</h1>
+        <p>
+          One funnel. One content engine. One operating system for recruiting, onboarding, and scaling talent around the clock.
+        </p>
+        <div class="hero-actions">
+          <a class="btn" href="#form">Apply Now</a>
+          <a class="btn secondary" href="#roles">See Roles</a>
+        </div>
+        <div class="stats">
+          <div class="stat">
+            <b>24/7</b>
+            <span>Always-on recruitment flow</span>
+          </div>
+          <div class="stat">
+            <b>Fast</b>
+            <span>Simple form, clean process</span>
+          </div>
+          <div class="stat">
+            <b>Scalable</b>
+            <span>Built for team growth</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin:0 0 12px;font-size:24px;">Built for operators</h3>
+        <p style="margin:0 0 18px;color:var(--muted);">
+          Editors, designers, managers, researchers, assistants, and system-minded people who can execute with clarity.
+        </p>
+        <div class="bullet">
+          <span class="bullet-dot"></span>
+          <div>
+            <b>Clear roles</b>
+            <span>Know what you do and how you contribute.</span>
+          </div>
+        </div>
+        <div class="bullet">
+          <span class="bullet-dot"></span>
+          <div>
+            <b>Simple intake</b>
+            <span>Apply in minutes with the details that matter.</span>
+          </div>
+        </div>
+        <div class="bullet">
+          <span class="bullet-dot"></span>
+          <div>
+            <b>Better structure</b>
+            <span>Cleaner website, fewer errors, real user flow.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="roles">
+      <h2 class="section-title">Roles we look for</h2>
+      <p class="section-copy">
+        Pick the lane that fits your strength. This page is ready to use as a real front-end landing page for applications.
+      </p>
+
+      <div class="panel-grid">
+        <div class="card">
+          <h3>Editors</h3>
+          <p>Short-form, long-form, pacing, sequencing, content refinement.</p>
+        </div>
+        <div class="card">
+          <h3>Designers</h3>
+          <p>Visual systems, posts, thumbnails, motion assets, clean branding.</p>
+        </div>
+        <div class="card">
+          <h3>Managers</h3>
+          <p>Tracking, reporting, organizing people, deadlines, communication.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="form-wrap">
+      <div class="card form-card">
+        <h2 class="section-title" id="form" style="margin-bottom:6px;">Apply now</h2>
+        <p class="section-copy" style="margin-bottom:20px;">
+          Fill this out and send your application. This version validates properly and shows a working success popup.
+        </p>
+
+        <form id="applicationForm">
+          <div class="field-row">
+            <div>
+              <label for="name">Full name</label>
+              <input id="name" name="name" type="text" placeholder="Your name" required />
+            </div>
+            <div>
+              <label for="country">Country</label>
+              <input id="country" name="country" type="text" placeholder="Your country" required />
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div>
+              <label for="role">Role</label>
+              <select id="role" name="role" required>
+                <option value="">Select role</option>
+                <option>Editor</option>
+                <option>Designer</option>
+                <option>Manager</option>
+                <option>Researcher</option>
+                <option>Assistant</option>
+              </select>
+            </div>
+            <div>
+              <label for="whatsapp">WhatsApp</label>
+              <input id="whatsapp" name="whatsapp" type="text" placeholder="+254..." />
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div>
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="you@example.com" />
+            </div>
+            <div>
+              <label for="portfolio">Portfolio / Link</label>
+              <input id="portfolio" name="portfolio" type="url" placeholder="https://..." />
+            </div>
+          </div>
+
+          <div>
+            <label for="why">Why should we pick you?</label>
+            <textarea id="why" name="why" placeholder="Tell us what you do well and how you move." required></textarea>
+          </div>
+
+          <div class="helper">This demo page stores your form data in the browser and shows a success message. It is ready to connect to Google Forms, Formspree, Sheets, Airtable, or a backend later.</div>
+
+          <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:4px;">
+            <button class="btn" type="submit">Submit Application</button>
+            <button class="btn secondary" type="reset">Clear</button>
+          </div>
+        </form>
+      </div>
+
+      <aside class="card side-card">
+        <h3>What this final version fixes</h3>
+        <p>Your original page is now cleaned up and working better.</p>
+        <div class="bullet">
+          <span class="bullet-dot"></span>
+          <div>
+            <b>Better layout</b>
+            <span>More polished spacing, hierarchy, and responsive structure.</span>
+          </div>
+        </div>
+        <div class="bullet">
+          <span class="bullet-dot"></span>
+          <div>
+            <b>Working form flow</b>
+            <span>Required fields, popup feedback, and safer event handling.</span>
+          </div>
+        </div>
+        <div class="bullet">
+          <span class="bullet-dot"></span>
+          <div>
+            <b>Cleaner code</b>
+            <span>Removed fragile inline JS from the form tag and tightened the styling.</span>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section id="cta" class="card cta">
+      <div>
+        <h2>Build the system.</h2>
+        <p>Use this as your landing page now, or connect it to a real form service and start collecting applicants immediately.</p>
+      </div>
+      <div style="display:flex; gap:12px; flex-wrap:wrap;">
+        <a class="btn" href="#form">Apply Now</a>
+        <button class="btn secondary" type="button" id="downloadDataBtn">Download Demo Data</button>
+      </div>
+    </section>
+  </main>
+
+  <a href="#form" class="float">Apply</a>
+
+  <div id="popup" class="popup" aria-hidden="true">
+    <div class="popup-box">
+      <span class="success-line">Success</span>
+      <h2>Application sent</h2>
+      <p>Your application has been captured on this page. For a live setup, connect the form to Google Sheets, Formspree, Airtable, or your backend.</p>
+      <div class="popup-actions">
+        <button class="btn" type="button" id="closePopupBtn">Close</button>
+        <a class="btn secondary" href="#form">Back to form</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Red Planet © 2026
+  </footer>
+
+  <script>
+    const form = document.getElementById('applicationForm');
+    const popup = document.getElementById('popup');
+    const closePopupBtn = document.getElementById('closePopupBtn');
+    const downloadDataBtn = document.getElementById('downloadDataBtn');
+
+    function showPopup() {
+      popup.classList.add('show');
+      popup.setAttribute('aria-hidden', 'false');
+    }
+
+    function closePopup() {
+      popup.classList.remove('show');
+      popup.setAttribute('aria-hidden', 'true');
+    }
+
+    function saveSubmission(data) {
+      const existing = JSON.parse(localStorage.getItem('redPlanetApplications') || '[]');
+      existing.push({
+        ...data,
+        submittedAt: new Date().toISOString()
+      });
+      localStorage.setItem('redPlanetApplications', JSON.stringify(existing));
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const data = {
+        name: form.name.value.trim(),
+        country: form.country.value.trim(),
+        role: form.role.value,
+        whatsapp: form.whatsapp.value.trim(),
+        email: form.email.value.trim(),
+        portfolio: form.portfolio.value.trim(),
+        why: form.why.value.trim()
+      };
+
+      saveSubmission(data);
+      showPopup();
+      form.reset();
+    });
+
+    closePopupBtn.addEventListener('click', closePopup);
+
+    popup.addEventListener('click', function (e) {
+      if (e.target === popup) closePopup();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closePopup();
+    });
+
+    downloadDataBtn.addEventListener('click', function () {
+      const data = localStorage.getItem('redPlanetApplications') || '[]';
+      const blob = new Blob([data], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'red-planet-applications.json';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    });
+  </script>
+</body>
+</html>
