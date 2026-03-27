@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Red Planet System Architect</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-grid"></div>
+
+  <header class="navbar">
+    <div class="brand">
+      <div class="brand-mark"></div>
+      <div>
+        <h1>RED PLANET</h1>
+        <p>System Architect Console</p>
+      </div>
+    </div>
+
+    <nav>
+      <a href="#overview">Overview</a>
+      <a href="#recruitment">Recruitment</a>
+      <a href="#automation">Automation</a>
+      <a href="#blast">Blast System</a>
+      <a href="#templates">Templates</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero" id="overview">
+      <div class="hero-copy">
+        <span class="eyebrow">AUTOMATION • RECRUITMENT • DISTRIBUTION</span>
+        <h2>Build the machine. Stop relying on manual work.</h2>
+        <p>
+          This is a Red Planet system page built to turn attention into applicants,
+          applicants into workers, and content into repeatable movement.
+        </p>
+        <div class="hero-actions">
+          <a href="#recruitment" class="btn btn-primary">Join Red Planet Team</a>
+          <a href="#automation" class="btn btn-secondary">View System Flow</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h3>Today's Objective</h3>
+        <ul>
+          <li>Collect talent automatically</li>
+          <li>Assign tasks faster</li>
+          <li>Track everybody in one place</li>
+          <li>Push content through a loop system</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="panel" id="recruitment">
+      <div class="section-heading">
+        <span>01</span>
+        <div>
+          <h3>Recruitment Funnel</h3>
+          <p>Simple form → spreadsheet/database → message → task → tracking</p>
+        </div>
+      </div>
+
+      <form id="joinForm" class="join-form">
+        <div class="grid two">
+          <label>
+            Full Name
+            <input type="text" name="name" placeholder="Your name" required />
+          </label>
+
+          <label>
+            Country
+            <input type="text" name="country" placeholder="Your country" required />
+          </label>
+        </div>
+
+        <div class="grid two">
+          <label>
+            Skill
+            <select name="skill" required>
+              <option value="">Select your skill</option>
+              <option>Content Posting</option>
+              <option>Graphic Design</option>
+              <option>Video Editing</option>
+              <option>Outreach / Networking</option>
+              <option>Community Management</option>
+              <option>SEO</option>
+              <option>Automation / AI</option>
+              <option>Other</option>
+            </select>
+          </label>
+
+          <label>
+            WhatsApp
+            <input type="text" name="whatsapp" placeholder="+254..." required />
+          </label>
+        </div>
+
+        <label>
+          Why should we add you to Red Planet?
+          <textarea name="notes" rows="5" placeholder="Tell us what you can do..."></textarea>
+        </label>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Submit Application</button>
+          <p id="formStatus" class="status">Form is ready. Connect it to your endpoint in script.js.</p>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel" id="automation">
+      <div class="section-heading">
+        <span>02</span>
+        <div>
+          <h3>Automation System</h3>
+          <p>Minimal-manual workflow for applicants, content, and activation</p>
+        </div>
+      </div>
+
+      <div class="cards">
+        <article class="card">
+          <h4>Applicant Flow</h4>
+          <p>Form submit → webhook → database row → welcome message → skill-based task → manager notification</p>
+        </article>
+
+        <article class="card">
+          <h4>Content Flow</h4>
+          <p>New post created → platform distribution → team alert → first-five-minute engagement push</p>
+        </article>
+
+        <article class="card">
+          <h4>Tracking Flow</h4>
+          <p>Status updates are logged in one system so you can see applicants, team members, and performance fast.</p>
+        </article>
+      </div>
+
+      <div class="code-box">
+<pre>Core stack idea:
+Landing Page → Webhook → Google Sheet / Airtable → n8n
+n8n → WhatsApp / Email / Telegram → Task Assignment → Tracking</pre>
+      </div>
+    </section>
+
+    <section class="panel" id="blast">
+      <div class="section-heading">
+        <span>03</span>
+        <div>
+          <h3>Blast System</h3>
+          <p>Templates for recruitment, activation, and content push</p>
+        </div>
+      </div>
+
+      <div class="cards three">
+        <article class="card">
+          <h4>Recruit Message</h4>
+          <p>Welcome to Red Planet. You’ve been added to the system. Reply with your skill and availability so we can assign your first task.</p>
+        </article>
+
+        <article class="card">
+          <h4>Activation Message</h4>
+          <p>New post is live. Engage in the first 5 minutes. Comment, save, share, and push traffic to the main funnel now.</p>
+        </article>
+
+        <article class="card">
+          <h4>Task Message</h4>
+          <p>Your task today: complete your assigned content or outreach quota, then submit proof back into the system before deadline.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel" id="templates">
+      <div class="section-heading">
+        <span>04</span>
+        <div>
+          <h3>Link Funnel Logic</h3>
+          <p>Every post should lead somewhere</p>
+        </div>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <strong>Instagram / TikTok / YouTube Post</strong>
+          <span>↓</span>
+        </div>
+        <div class="timeline-item">
+          <strong>CTA in caption, bio, comment, or DM trigger</strong>
+          <span>↓</span>
+        </div>
+        <div class="timeline-item">
+          <strong>Recruitment page / team form</strong>
+          <span>↓</span>
+        </div>
+        <div class="timeline-item">
+          <strong>Webhook + automation + onboarding</strong>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

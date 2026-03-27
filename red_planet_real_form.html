@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Red Planet — Real Form</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #182338 0%, #0b1020 45%, #080c18 100%);
+      color: white;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1300px;
+      margin: auto;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+    }
+
+    .nav-links a:hover {
+      color: white;
+    }
+
+    .hero {
+      margin-bottom: 50px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 8px 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 999px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.74);
+      background: rgba(255,255,255,0.03);
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-size: 52px;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      font-weight: 800;
+    }
+
+    .hero p {
+      max-width: 700px;
+      color: rgba(255,255,255,0.78);
+      font-size: 18px;
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn, .btn-secondary, .submit-btn, .cta-btn {
+      padding: 14px 26px;
+      border-radius: 12px;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn, .submit-btn, .cta-btn {
+      background: white;
+      color: black;
+    }
+
+    .btn:hover, .submit-btn:hover, .cta-btn:hover, .floating-apply:hover {
+      opacity: 0.92;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: white;
+      border: 1px solid rgba(255,255,255,0.16);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1.05fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .section-title {
+      font-size: 15px;
+      color: rgba(255,255,255,0.68);
+      margin-bottom: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .main-heading {
+      font-size: 42px;
+      font-weight: 800;
+      margin-bottom: 28px;
+    }
+
+    .card {
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      border-radius: 18px;
+      padding: 24px;
+      margin-bottom: 18px;
+      color: rgba(255,255,255,0.86);
+      line-height: 1.7;
+    }
+
+    .form-box {
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.035);
+      border-radius: 24px;
+      padding: 34px;
+    }
+
+    .form-box h1 {
+      font-size: 42px;
+      margin-bottom: 16px;
+      font-weight: 800;
+    }
+
+    .form-subtext {
+      font-size: 18px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.82);
+      margin-bottom: 24px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 16px 18px;
+      background: rgba(255,255,255,0.015);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 14px;
+      color: white;
+      font-size: 16px;
+      outline: none;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: rgba(255,255,255,0.56);
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: rgba(255,255,255,0.28);
+      box-shadow: 0 0 0 4px rgba(255,255,255,0.04);
+    }
+
+    textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    .helper {
+      color: rgba(255,255,255,0.62);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .status {
+      display: none;
+      margin-top: 8px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-size: 15px;
+      line-height: 1.6;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      color: rgba(255,255,255,0.86);
+    }
+
+    .status.show {
+      display: block;
+    }
+
+    .status.success {
+      border-color: rgba(34,197,94,0.35);
+      background: rgba(34,197,94,0.09);
+      color: #c7ffd9;
+    }
+
+    .status.error {
+      border-color: rgba(239,68,68,0.35);
+      background: rgba(239,68,68,0.08);
+      color: #ffd2d2;
+    }
+
+    .proof-section {
+      margin-top: 80px;
+    }
+
+    .proof-section h2 {
+      font-size: 38px;
+      margin-bottom: 14px;
+      font-weight: 800;
+    }
+
+    .proof-section p {
+      max-width: 760px;
+      color: rgba(255,255,255,0.76);
+      line-height: 1.8;
+      margin-bottom: 28px;
+    }
+
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .proof-card {
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      border-radius: 18px;
+      padding: 24px;
+    }
+
+    .proof-card h3 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .proof-card p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.72);
+    }
+
+    .cta-section {
+      text-align: center;
+      margin-top: 90px;
+      padding: 76px 24px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .cta-section h2 {
+      font-size: 40px;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .cta-section p {
+      font-size: 18px;
+      color: rgba(255,255,255,0.75);
+      max-width: 780px;
+      margin: 0 auto 28px;
+      line-height: 1.8;
+    }
+
+    .footer {
+      margin-top: 36px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      color: rgba(255,255,255,0.54);
+      font-size: 14px;
+    }
+
+    .floating-apply {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: white;
+      color: black;
+      text-decoration: none;
+      padding: 14px 22px;
+      border-radius: 999px;
+      font-weight: 700;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+      z-index: 999;
+      transition: 0.2s ease;
+    }
+
+    code.inline {
+      background: rgba(255,255,255,0.08);
+      padding: 3px 7px;
+      border-radius: 8px;
+      font-size: 13px;
+    }
+
+    @media (max-width: 950px) {
+      .grid, .proof-grid, .two-col {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1, .main-heading, .form-box h1, .proof-section h2, .cta-section h2 {
+        font-size: 32px;
+      }
+
+      .nav-links {
+        gap: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="navbar">
+      <div class="logo">Red Planet</div>
+      <div class="nav-links">
+        <a href="#overview">Overview</a>
+        <a href="#form">Apply</a>
+        <a href="#proof">System</a>
+        <a href="#cta">Join</a>
+      </div>
+    </div>
+
+    <section class="hero" id="overview">
+      <div class="hero-badge">Real Form Version</div>
+      <h1>Join Red Planet Team</h1>
+      <p>
+        This version is finalized into a real submit-ready form. It uses a live form endpoint structure, has proper validation,
+        loading states, success/error messages, and clean responsive styling.
+      </p>
+      <div class="hero-actions">
+        <a href="#form" class="btn">Apply Now</a>
+        <a href="#proof" class="btn-secondary">See Setup</a>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div>
+        <div class="section-title">Overview</div>
+        <div class="main-heading">Built like a clean recruiting machine.</div>
+
+        <div class="card">
+          <strong>What changed:</strong><br>
+          Removed fragile popup-only submission and rebuilt the form with real async submit logic.
+          It now sends data to a live-ready endpoint field instead of only storing locally.
+        </div>
+
+        <div class="card">
+          <strong>How to make it fully live in 10 seconds:</strong><br>
+          Replace <code class="inline">YOUR_FORMSPREE_ID</code> in the file with your real Formspree form ID.<br>
+          Example: <code class="inline">https://formspree.io/f/abcdexyz</code>
+        </div>
+
+        <div class="card">
+          <strong>Why Formspree:</strong><br>
+          No backend needed. You can host this on Netlify, Vercel, GitHub Pages, or open it locally, and submissions will still work once the endpoint is added.
+        </div>
+      </div>
+
+      <div class="form-box">
+        <h1 id="form">Apply Now</h1>
+        <p class="form-subtext">
+          Fill in your details and submit. This file is already wired for real form posting.
+        </p>
+
+        <form id="applicationForm" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+          <div class="two-col">
+            <input type="text" name="name" placeholder="Full name" required>
+            <input type="text" name="country" placeholder="Country" required>
+          </div>
+
+          <div class="two-col">
+            <select name="role" required>
+              <option value="">Select role</option>
+              <option>Editor</option>
+              <option>Designer</option>
+              <option>Manager</option>
+              <option>Researcher</option>
+              <option>Assistant</option>
+            </select>
+            <input type="text" name="whatsapp" placeholder="WhatsApp">
+          </div>
+
+          <div class="two-col">
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="url" name="portfolio" placeholder="Portfolio / Link">
+          </div>
+
+          <textarea name="message" placeholder="Why should we pick you?" required></textarea>
+
+          <input type="hidden" name="_subject" value="New Red Planet Application">
+          <input type="hidden" name="_captcha" value="false">
+
+          <button class="submit-btn" id="submitBtn" type="submit">Submit Application</button>
+          <div class="helper">
+            To make this fully live, swap the placeholder Formspree ID with your real one.
+          </div>
+          <div class="status" id="formStatus"></div>
+        </form>
+      </div>
+    </section>
+
+    <section class="proof-section" id="proof">
+      <h2>What this version does better</h2>
+      <p>
+        This is no longer just a visual demo. It is structured as a real HTML form with network submission logic and fallback messaging.
+      </p>
+
+      <div class="proof-grid">
+        <div class="proof-card">
+          <h3>Real submit flow</h3>
+          <p>Uses fetch + form action endpoint instead of fake popup-only submission.</p>
+        </div>
+        <div class="proof-card">
+          <h3>Error handling</h3>
+          <p>Shows clear success and failure states so users know what happened.</p>
+        </div>
+        <div class="proof-card">
+          <h3>Easy hosting</h3>
+          <p>Works well on static hosting once you paste in your real Formspree endpoint.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section" id="cta">
+      <h2>Build the system.</h2>
+      <p>
+        This file is finalized and ready to download. The only thing left is replacing the placeholder endpoint with your real one.
+      </p>
+      <a href="#form" class="cta-btn">Apply Flow</a>
+    </section>
+
+    <div class="footer">
+      <span>Red Planet</span>
+      <span>Final real-form build</span>
+    </div>
+  </div>
+
+  <a href="#form" class="floating-apply">Apply</a>
+
+  <script>
+    const form = document.getElementById("applicationForm");
+    const statusBox = document.getElementById("formStatus");
+    const submitBtn = document.getElementById("submitBtn");
+
+    function showStatus(message, type) {
+      statusBox.textContent = message;
+      statusBox.className = "status show " + type;
+    }
+
+    form.addEventListener("submit", async function(e) {
+      e.preventDefault();
+
+      const action = form.getAttribute("action");
+      if (!action || action.includes("YOUR_FORMSPREE_ID")) {
+        showStatus("Form endpoint not connected yet. Replace YOUR_FORMSPREE_ID with your real Formspree ID, then it will submit live.", "error");
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Submitting...";
+
+      try {
+        const response = await fetch(action, {
+          method: "POST",
+          body: new FormData(form),
+          headers: {
+            "Accept": "application/json"
+          }
+        });
+
+        if (response.ok) {
+          form.reset();
+          showStatus("Application submitted successfully.", "success");
+        } else {
+          showStatus("Submission failed. Check the endpoint and try again.", "error");
+        }
+      } catch (error) {
+        showStatus("Network error. Make sure the form endpoint is valid and the page is online.", "error");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Submit Application";
+      }
+    });
+  </script>
+</body>
+</html>
