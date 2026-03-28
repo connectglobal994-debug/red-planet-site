@@ -1,0 +1,224 @@
+// Red Planet | script.js
+
+document.addEventListener("DOMContentLoaded", () => {
+  initSmoothScroll();
+  initNavbarEffect();
+  initRevealOnScroll();
+  initCounterAnimations();
+  initParallax();
+  initFormHandling();
+  initActiveNavLinks();
+});
+
+/* ------------------------------
+   Smooth Scroll
+------------------------------ */
+function initSmoothScroll() {
+  const links = document.querySelectorAll('a[href^="#"]');
+
+  links.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      const targetId = link.getAttribute("href");
+
+      if (!targetId || targetId === "#") return;
+
+      const target = document.querySelector(targetId);
+      if (!target) return;
+
+      e.preventDefault();
+
+      target.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    });
+  });
+}
+
+/* ------------------------------
+   Navbar Scroll Effect
+------------------------------ */
+function initNavbarEffect() {
+  const navbar = document.querySelector(".navbar");
+  if (!navbar) return;
+
+  const handleScroll = () => {
+    if (window.scrollY > 40) {
+      navbar.classList.add("scrolled");
+    } else {
+      navbar.classList.remove("scrolled");
+    }
+  };
+
+  handleScroll();
+  window.addEventListener("scroll", handleScroll);
+}
+
+/* ------------------------------
+   Reveal Elements On Scroll
+------------------------------ */
+function initRevealOnScroll() {
+  const elements = document.querySelectorAll(
+    ".reveal, .section, .card, .feature, .stat, .panel"
+  );
+
+  if (!elements.length) return;
+
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          obs.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.15,
+    }
+  );
+
+  elements.forEach((el) => {
+    el.classList.add("hidden-start");
+    observer.observe(el);
+  });
+}
+
+/* ------------------------------
+   Number Counter Animation
+------------------------------ */
+function initCounterAnimations() {
+  const counters = document.querySelectorAll(".count");
+  if (!counters.length) return;
+
+  const animateCounter = (counter) => {
+    const target = Number(counter.dataset.target || 0);
+    const duration = 1400;
+    const startTime = performance.now();
+
+    const update = (currentTime) => {
+      const progress = Math.min((currentTime - startTime) / duration, 1);
+      const value = Math.floor(progress * target);
+
+      counter.textContent = target >= 1000
+        ? value.toLocaleString()
+        : value.toString();
+
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      } else {
+        counter.textContent = target >= 1000
+          ? target.toLocaleString()
+          : target.toString();
+      }
+    };
+
+    requestAnimationFrame(update);
+  };
+
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          obs.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.5 }
+  );
+
+  counters.forEach((counter) => observer.observe(counter));
+}
+
+/* ------------------------------
+   Hero Parallax
+------------------------------ */
+function initParallax() {
+  const hero = document.querySelector(".hero");
+  const heroOverlay = document.querySelector(".hero-overlay");
+
+  if (!hero && !heroOverlay) return;
+
+  window.addEventListener("scroll", () => {
+    const offset = window.scrollY * 0.35;
+
+    if (hero) {
+      hero.style.backgroundPosition = `center ${offset}px`;
+    }
+
+    if (heroOverlay) {
+      heroOverlay.style.transform = `translateY(${offset * 0.15}px)`;
+    }
+  });
+}
+
+/* ------------------------------
+   Form Handling
+------------------------------ */
+function initFormHandling() {
+  const form = document.querySelector("#joinForm");
+  if (!form) return;
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const name = form.querySelector('input[name="name"]')?.value.trim() || "";
+    const country = form.querySelector('input[name="country"]')?.value.trim() || "";
+    const skill = form.querySelector('input[name="skill"]')?.value.trim() || "";
+    const whatsapp = form.querySelector('input[name="whatsapp"]')?.value.trim() || "";
+
+    if (!name || !country || !skill || !whatsapp) {
+      alert("Fill in all fields.");
+      return;
+    }
+
+    const application = {
+      name,
+      country,
+      skill,
+      whatsapp,
+      submittedAt: new Date().toISOString(),
+    };
+
+    const existing = JSON.parse(localStorage.getItem("redPlanetApplicants") || "[]");
+    existing.push(application);
+    localStorage.setItem("redPlanetApplicants", JSON.stringify(existing));
+
+    form.reset();
+    alert("Application received.");
+  });
+}
+
+/* ------------------------------
+   Active Nav Highlight
+------------------------------ */
+function initActiveNavLinks() {
+  const sections = document.querySelectorAll("section[id]");
+  const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+
+  if (!sections.length || !navLinks.length) return;
+
+  const setActiveLink = () => {
+    let currentId = "";
+
+    sections.forEach((section) => {
+      const top = section.offsetTop - 120;
+      const height = section.offsetHeight;
+
+      if (window.scrollY >= top && window.scrollY < top + height) {
+        currentId = section.getAttribute("id");
+      }
+    });
+
+    navLinks.forEach((link) => {
+      link.classList.remove("active");
+      if (link.getAttribute("href") === `#${currentId}`) {
+        link.classList.add("active");
+      }
+    });
+  };
+
+  setActiveLink();
+  window.addEventListener("scroll", setActiveLink);
+}s
